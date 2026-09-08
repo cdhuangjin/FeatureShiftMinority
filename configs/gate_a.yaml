@@ -1,0 +1,72 @@
+# Project C Gate A configuration
+
+seeds:
+  - 42
+  - 52
+  - 62
+
+datasets:
+  - satimage
+  - mammography
+  - abalone_19
+
+dataset_sources:
+  satimage: "imblearn Zenodo (ID 3), UCI, binarised target=4, ratio 9.3:1"
+  mammography: "imblearn Zenodo (ID 25), UCI, target=minority, ratio 42:1"
+  abalone_19: "imblearn Zenodo (ID 27), UCI, target=19, ratio 130:1"
+
+models:
+  - xgboost
+  - random_forest
+
+split:
+  train: 0.60
+  validation: 0.20
+  test: 0.20
+
+model_config:
+  xgboost:
+    n_estimators: 300
+    max_depth: 6
+    learning_rate: 0.05
+    subsample: 0.9
+    colsample_bytree: 0.9
+    objective: "binary:logistic"
+    eval_metric: "logloss"
+    tree_method: "hist"
+    n_jobs: -1
+  random_forest:
+    n_estimators: 300
+    max_depth:
+    min_samples_leaf: 2
+    class_weight:
+    n_jobs: -1
+
+feature_shift:
+  removal_fraction: 0.10
+  strategies:
+    - random
+    - global_importance
+    - minority_specific
+  min_removed: 1
+  max_removed: 5
+  numeric_fill: "train_median"
+  onehot_fill: 0
+
+importance:
+  permutation_repeats: 5
+  global_metric: "auprc"
+  minority_metric: "minority_recall"
+  majority_metric: "majority_recall"
+
+gate:
+  strong_mvg: 0.10
+  moderate_mvg: 0.05
+  strong_specificity_gap: 0.10
+  hidden_auroc_drop_max: 0.03
+  hidden_minority_recall_drop_min: 0.10
+  min_seed_consistency: 2
+  min_datasets_for_go: 2
+
+aggregation: "mean"
+epsilon: 1.0e-12

@@ -1,0 +1,18 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.pytest_tmp/
+
+# Downloaded / generated data is large and reproducible from the Zenodo cache.
+data/
+
+# Generated experiment outputs are reproducible from the code; keep the repo clean.
+results/
+
+# Local editor / OS noise.
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store

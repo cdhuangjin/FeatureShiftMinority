@@ -1,0 +1,104 @@
+dataset_freeze_hash: f7f7f2a9b45782d8
+freeze_timestamp: '2026-09-07T11:32:26.007707+00:00'
+dataset_list:
+- satimage
+- mammography
+- abalone_19
+- oil
+- yeast_ml8
+- coil_2000
+- wine_quality
+- thyroid_sick
+- pen_digits
+- ecoli
+dataset_meta:
+- dataset: satimage
+  source: imblearn Zenodo (satimage)
+  task_definition: binary_classification
+  positive_label: minority_class
+  imbalance_ratio: 9.2796
+  n_samples: 6435
+  n_features: 36
+  n_numeric: 36
+  n_categorical: 0
+- dataset: mammography
+  source: imblearn Zenodo (mammography)
+  task_definition: binary_classification
+  positive_label: minority_class
+  imbalance_ratio: 42.0115
+  n_samples: 11183
+  n_features: 6
+  n_numeric: 6
+  n_categorical: 0
+- dataset: abalone_19
+  source: imblearn Zenodo (abalone_19)
+  task_definition: binary_classification
+  positive_label: minority_class
+  imbalance_ratio: 129.5312
+  n_samples: 4177
+  n_features: 10
+  n_numeric: 10
+  n_categorical: 0
+- dataset: oil
+  source: imblearn Zenodo (oil)
+  task_definition: binary_classification
+  positive_label: minority_class
+  imbalance_ratio: 21.8537
+  n_samples: 937
+  n_features: 49
+  n_numeric: 49
+  n_categorical: 0
+- dataset: yeast_ml8
+  source: imblearn Zenodo (yeast_ml8)
+  task_definition: binary_classification
+  positive_label: minority_class
+  imbalance_ratio: 12.5787
+  n_samples: 2417
+  n_features: 103
+  n_numeric: 103
+  n_categorical: 0
+- dataset: coil_2000
+  source: imblearn Zenodo (coil_2000)
+  task_definition: binary_classification
+  positive_label: minority_class
+  imbalance_ratio: 15.7611
+  n_samples: 9822
+  n_features: 85
+  n_numeric: 85
+  n_categorical: 0
+- dataset: wine_quality
+  source: imblearn Zenodo (wine_quality)
+  task_definition: binary_classification
+  positive_label: minority_class
+  imbalance_ratio: 25.765
+  n_samples: 4898
+  n_features: 11
+  n_numeric: 11
+  n_categorical: 0
+- dataset: thyroid_sick
+  source: imblearn Zenodo (thyroid_sick)
+  task_definition: binary_classification
+  positive_label: minority_class
+  imbalance_ratio: 15.329
+  n_samples: 3772
+  n_features: 52
+  n_numeric: 52
+  n_categorical: 0
+- dataset: pen_digits
+  source: imblearn Zenodo (pen_digits)
+  task_definition: binary_classification
+  positive_label: minority_class
+  imbalance_ratio: 9.419
+  n_samples: 10992
+  n_features: 16
+  n_numeric: 16
+  n_categorical: 0
+- dataset: ecoli
+  source: imblearn Zenodo (ecoli)
+  task_definition: binary_classification
+  positive_label: minority_class
+  imbalance_ratio: 8.6
+  n_samples: 336
+  n_features: 7
+  n_numeric: 7
+  n_categorical: 0

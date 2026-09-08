@@ -1,0 +1,122 @@
+# Project C Phase C1/C2 configuration.
+# Gate A remains a separate, immutable authority; this stage writes only to
+# results/phase_c12/.
+
+seeds:
+  - 42
+  - 52
+  - 62
+
+datasets:
+  - satimage
+  - mammography
+  - abalone_19
+  - oil
+  - yeast_ml8
+  - coil_2000
+  - wine_quality
+  - thyroid_sick
+  - pen_digits
+  - ecoli
+
+models:
+  - logistic_regression
+  - random_forest
+  - xgboost
+  - lightgbm
+
+split:
+  train: 0.60
+  validation: 0.20
+  test: 0.20
+
+model_config:
+  logistic_regression:
+    max_iter: 5000
+    C: 1.0
+    class_weight:
+    n_jobs: -1
+  random_forest:
+    n_estimators: 300
+    max_depth:
+    min_samples_leaf: 2
+    class_weight:
+    n_jobs: -1
+  xgboost:
+    n_estimators: 300
+    max_depth: 6
+    learning_rate: 0.05
+    subsample: 0.9
+    colsample_bytree: 0.9
+    objective: "binary:logistic"
+    eval_metric: "logloss"
+    tree_method: "hist"
+    n_jobs: -1
+  lightgbm:
+    n_estimators: 300
+    learning_rate: 0.05
+    max_depth: -1
+    num_leaves: 31
+    subsample: 0.9
+    colsample_bytree: 0.9
+    n_jobs: -1
+
+observability:
+  strong_minority_recall: 0.30
+  minimum_primary_recall: 0.20
+
+removal_rates:
+  - 0.05
+  - 0.10
+  - 0.20
+  - 0.30
+  - 0.40
+
+shift_types:
+  - random
+  - global_importance
+  - minority_specific
+  - majority_specific
+
+importance:
+  permutation_repeats: 5
+  global_metric: auprc
+  minority_metric: minority_recall
+  majority_metric: majority_recall
+
+structured:
+  group_loss: true
+  correlated_loss: true
+  matched_random: true
+  group_removal_budget: [0.10, 0.30]
+  group_min_features: 1
+  group_max_removed: 5
+  correlation_threshold: 0.7
+  correlated_loss_budget: 0.10
+
+delayed:
+  availability: [0.50, 0.75, 1.00]
+  ordering: global_importance
+
+statistics:
+  bootstrap_iterations: 2000
+  confidence_level: 0.95
+  fdr_alpha: 0.05
+  min_effect_for_significance: 0.05
+
+paper_gate:
+  strong_mvg: 0.10
+  hidden_auroc_max: 0.03
+  hidden_recall_drop_min: 0.10
+  hidden_auprc_max: 0.05
+  min_observable_mvg_positive_datasets: 5
+  min_observable_mvg_strong_datasets: 4
+  min_models_positive: 3
+  min_hidden_failure_datasets: 3
+  min_hidden_consistency: 2
+  min_structured_positive_datasets: 3
+  min_class_control_datasets: 4
+  strong_go_conditions_required: 7
+
+epsilon: 1.0e-12
+threshold: 0.5

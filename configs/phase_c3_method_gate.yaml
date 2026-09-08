@@ -1,0 +1,101 @@
+# Project C Phase C3: MAFR-v0 Method Gate configuration.
+# Read-only inherited facts (Phase C1/C2): 6 observable datasets, pooled MVG 0.493,
+# class-specific asymmetry (minority-specific 0.832 vs majority-specific -0.009).
+# This stage writes ONLY to results/phase_c3_method_gate/. It never touches
+# results/gate_a/ or results/phase_c12/.
+
+seeds:
+  - 42
+  - 52
+  - 62
+
+datasets:
+  - mammography
+  - pen_digits
+  - satimage
+
+models:
+  - logistic_regression
+  - xgboost
+
+split:
+  train: 0.60
+  validation: 0.20
+  test: 0.20
+
+model_config:
+  logistic_regression:
+    max_iter: 5000
+    C: 1.0
+    class_weight:
+    n_jobs: -1
+  xgboost:
+    n_estimators: 300
+    max_depth: 6
+    learning_rate: 0.05
+    subsample: 0.9
+    colsample_bytree: 0.9
+    objective: "binary:logistic"
+    eval_metric: "logloss"
+    tree_method: "hist"
+    n_jobs: -1
+
+importance:
+  permutation_repeats: 5
+  global_metric: auprc
+  minority_metric: minority_recall
+  majority_metric: majority_recall
+
+mafr:
+  weights_variants:
+    MAFR-A: [0.35, 0.25, 0.20, 0.20]
+    MAFR-B: [0.30, 0.30, 0.20, 0.20]
+    MAFR-C: [0.30, 0.20, 0.25, 0.25]
+  retention_ratios: [0.70, 0.80, 0.90]
+  default_retention: 0.80
+  min_features: 3
+  correlation_threshold: 0.7
+  validation_stress:
+    random_rates: [0.05, 0.10, 0.20]
+    global_rate: 0.10
+    minority_rate: 0.10
+
+methods:
+  baselines: [B0, B1, B2, B3, B4]
+  mafr: M1
+  budget_retention: 0.80
+  budget_min_features: 3
+
+test_shifts:
+  - full
+  - random_10
+  - global_importance_10
+  - minority_specific_10
+  - majority_specific_10
+  - global_importance_20
+  - minority_specific_20
+
+statistics:
+  bootstrap_iterations: 5000
+  confidence_level: 0.95
+  fdr_alpha: 0.05
+  min_effect_size: 0.20
+
+method_gate:
+  hidden_auroc_max: 0.03
+  hidden_recall_drop_min: 0.10
+  mg1_min_cells: 5
+  mg1_min_reduction: 0.10
+  mg2_min_cells: 5
+  mg2_min_recovery: 0.05
+  mg3_hfr_reduction_min: 0.30
+  mg4_max_mean_auprc_drop: 0.02
+  mg4_max_cell_auprc_drop: 0.05
+  mg5_max_mean_auroc_drop: 0.01
+  mg6_min_cells: 4
+  mg7: 0.0
+  mg8_min_effect_size: 0.20
+  strong_go_conditions_required: 7
+
+epsilon: 1.0e-12
+threshold: 0.5
